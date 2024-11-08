@@ -1,0 +1,88 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # Job to set up Node.js, install dependencies, and run linting
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'  # Specify Node.js version
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run linting
+        run: npm run lint
+
+  # Job to run tests
+  test:
+    runs-on: ubuntu-latest
+    needs: lint  # Ensure linting runs first
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+  # Job to build the application (if needed)
+  build:
+    runs-on: ubuntu-latest
+    needs: test  # Ensure tests pass before building
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build  # If you have a build script
+
+  # Job to deploy the app (optional, e.g., to Heroku, AWS, etc.)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Ensure build completes before deployment
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Deploy the app
+        run: |
+          echo "Deploying the app..."
+          # Add your deployment commands here, e.g., to Heroku or AWS
+
