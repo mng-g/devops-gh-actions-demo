@@ -1,7 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const axios = require('axios');
-const path = require('path');
+import 'dotenv/config';  // Import dotenv (no need for require)
+import express from 'express';
+import axios from 'axios';
+import path from 'path';
+import { fileURLToPath } from 'url';  // Import the fileURLToPath function from 'url'
+
+// Get the current file's directory path
+const __filename = fileURLToPath(import.meta.url);  // Convert the current file's URL to a path
+const __dirname = path.dirname(__filename);  // Get the directory name
 
 const app = express();
 const PORT = 3000;
@@ -48,7 +53,12 @@ app.post('/getWeather', async (req, res) => {
   }
 });
 
+// Export the app for testing
+export default app;  // <-- Export app here
+
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Weather app running on http://localhost:${PORT}`);
-});
+if (import.meta.url === `file://${process.argv[1]}`) {  // Ensure the server starts only when index.js is executed directly
+  app.listen(PORT, () => {
+    console.log(`Weather app running on http://localhost:${PORT}`);
+  });
+}

@@ -7,15 +7,18 @@ export default [
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',       // ECMAScript version
-      sourceType: 'commonjs',      // Keep as 'commonjs' for your project
+      sourceType: 'module',        // Use 'module' for ES module syntax
       globals: {                   // Combine globals
-        ...globals.browser,
+        ...globals.browser,        // Add browser globals
         ...globals.node,           // Add Node.js globals if running in Node
+        describe: 'readonly',      // Mocha globals
+        it: 'readonly',
+        before: 'readonly',
+        after: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
       },
     },
-  },
-  pluginJs.configs.recommended,
-  {
     rules: {
       // Customize rules to match your coding standards
       'no-console': 'off',            // Allow console statements
@@ -24,4 +27,5 @@ export default [
       'indent': ['error', 2],         // Enforce 2-space indentation
     },
   },
+  pluginJs.configs.recommended, // Use recommended rules from ESLint JS plugin
 ];
