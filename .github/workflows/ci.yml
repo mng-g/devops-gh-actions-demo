@@ -9,6 +9,10 @@ on:
       - main
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: ./simple-weather-app
+
 jobs:
   # Job to set up Node.js, install dependencies, and run linting
   lint:
