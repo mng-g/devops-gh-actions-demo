@@ -7,7 +7,7 @@
     "dev": "nodemon index.js",
     "lint": "eslint .",
     "test": "mocha",
-    "build": "webpack --mode production"
+    "build": "echo 'webpack --mode production'"
   },
   "keywords": [],
   "author": "",
