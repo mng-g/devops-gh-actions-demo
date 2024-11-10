@@ -7,6 +7,7 @@ document.getElementById('getWeatherBtn').addEventListener('click', async () => {
   if (data.main) {
     weatherResult.innerHTML = `
         <p><strong>City:</strong> ${data.name}</p>
+        <p><strong>Country:</strong> ${data.sys.country}</p>
         <p><strong>Temperature:</strong> ${data.main.temp}°C</p>
         <p><strong>Weather:</strong> ${data.weather[0].description}</p>
         <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
