@@ -35,7 +35,6 @@ jobs:
   # Job to run tests
   test:
     runs-on: ubuntu-latest
-    needs: lint  # Ensure linting runs first
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
