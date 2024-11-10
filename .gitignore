@@ -1,3 +1,6 @@
+# Custom
+*.mjs
+
 # Node.js modules
 node_modules/
  

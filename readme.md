@@ -31,13 +31,13 @@ A minimal weather application built with Node.js that retrieves and displays wea
     ```
 4. Start the server:
     ```bash
-    node index.js
+    node app.js
     ```
 5. Open your browser and visit http://localhost:3000.
 
 ## 📂 Project Structure
 
-- **`index.js`**: Main server file that serves the landing page and fetches weather data from OpenWeather API.
+- **`app.js`**: Main server file that serves the landing page and fetches weather data from OpenWeather API.
 - **`public/`**: Contains static assets:
   - `index.html`: Main HTML file for the landing page
   - `style.css`: Styling for the landing page
