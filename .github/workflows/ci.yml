@@ -68,7 +68,7 @@ jobs:
         run: npm install
 
       - name: Build the app
-        run: npm run build  # If you have a build script
+        run: npm run start  # If you have a build script
 
   # Job to deploy the app (optional, e.g., to Heroku, AWS, etc.)
   deploy:
