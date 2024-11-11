@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'simple-weather-app/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'simple-weather-app/**'
   workflow_dispatch:
 
 defaults:
