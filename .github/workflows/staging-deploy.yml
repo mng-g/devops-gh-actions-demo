@@ -90,20 +90,23 @@ jobs:
       run: |
         terraform plan
 
-    - name: Approval pre apply
-      uses: trstringer/manual-approval@v1
+    - name: wait pre apply
+      uses: GuillaumeFalourd/wait-sleep-action@v1
       with:
-        secret: ${{ github.TOKEN }}
-        approvers: mng-g
-        minimum-approvals: 1
-        issue-title: "Deploying v1.0.0 to prod"
-        issue-body: "Review the terraform plan, then approve or deny the deployment of v1.0.0 to prod."
-        exclude-workflow-initiator-as-approver: false
+        time: '10' # for 10 seconds
 
     - name: Terraform apply
       run: |
-        echo "applied!"
+        terraform apply
 
+    - name: wait pre destroy
+      uses: GuillaumeFalourd/wait-sleep-action@v1
+      with:
+        time: '60' # for 60 seconds
+
+    - name: Terraform destroy
+      run: |
+        terraform destroy
     
     # ======================================================
     # We need to create a new Terraform resource file and for
