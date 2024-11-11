@@ -98,7 +98,7 @@ jobs:
     - name: Terraform apply
       working-directory: infra/instances/staging/
       run: |
-        terraform apply
+        terraform apply -auto-approve
 
     - name: wait pre destroy
       uses: GuillaumeFalourd/wait-sleep-action@v1
@@ -108,7 +108,7 @@ jobs:
     - name: Terraform destroy
       working-directory: infra/instances/staging/
       run: |
-        terraform destroy
+        terraform apply destroy -auto-approve
     
     # ======================================================
     # We need to create a new Terraform resource file and for
