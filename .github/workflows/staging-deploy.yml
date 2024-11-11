@@ -96,6 +96,7 @@ jobs:
         time: '10' # for 10 seconds
 
     - name: Terraform apply
+      working-directory: infra/instances/staging/
       run: |
         terraform apply
 
@@ -105,6 +106,7 @@ jobs:
         time: '60' # for 60 seconds
 
     - name: Terraform destroy
+      working-directory: infra/instances/staging/
       run: |
         terraform destroy
     
