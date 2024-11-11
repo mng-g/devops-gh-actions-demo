@@ -2,15 +2,16 @@ name: "Code scanning"
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'simple-weather-app/**'
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-    paths:
-      - 'simple-weather-app/**'
+    branches:
+      - main
+  workflow_dispatch:
 
-
+defaults:
+  run:
+    working-directory: ./simple-weather-app
 
 jobs:
   analyze:
