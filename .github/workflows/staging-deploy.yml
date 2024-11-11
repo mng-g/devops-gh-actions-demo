@@ -81,10 +81,12 @@ jobs:
           terraform_version: 1.5.7
 
     - name: Terraform init and validate
+      working-directory: infra/instances/staging/
       run: |
         terraform init
 
     - name: Terraform plan
+      working-directory: infra/instances/staging/
       run: |
         terraform plan
 
