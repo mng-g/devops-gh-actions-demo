@@ -53,8 +53,8 @@ jobs:
     # ======================================================
     - uses: actions/checkout@v2
       name: 'Checkout repository and infra branch'
-      with:
-        ref: infra
+    #   with:
+    #     ref: infra
 
     # ======================================================
     # Terraform setup
