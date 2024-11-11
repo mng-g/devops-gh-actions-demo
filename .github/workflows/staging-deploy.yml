@@ -56,17 +56,37 @@ jobs:
     #   with:
     #     ref: infra
 
+
+    - id: "auth"
+      name: "Authenticate to Google Cloud"
+      uses: "google-github-actions/auth@v1"
+      with:
+        credentials_json: "${{ secrets.GOOGLE_CREDENTIALS }}"
+        create_credentials_file: true
+        export_environment_variables: true
+
+
+
+
     # ======================================================
     # Terraform setup
     # 
     # - secrets.TERRAFORM_API_TOKEN: is the Terraform
     # Cloud API Token.
     # ======================================================
+
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: "1.1.7"
-        cli_config_credentials_token: ${{ secrets.TERRAFORM_API_TOKEN }}
+          terraform_version: 1.5.7
+
+    - name: Terraform init and validate
+      run: |
+        terraform init
+
+    - name: Terraform plan
+      run: |
+        terraform plan
 
     
     # ======================================================
@@ -92,19 +112,19 @@ jobs:
     #     OUTPUT="$(./create_staging_resource.sh PR_${{ github.event.inputs.PR_number }} | jq -r .terraform_expected_output)"
     #     echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
 
-    #TODO: Fare in modo che ci siano i file terraform desiderati nella folder staging
-    - name: Terraform Init and Validate
-      id: init
-      working-directory: infra/instances/staging/
-      run: |
-        terraform init
-        terraform validate -no-color
+    # #TODO: Fare in modo che ci siano i file terraform desiderati nella folder staging
+    # - name: Terraform Init and Validate
+    #   id: init
+    #   working-directory: infra/instances/staging/
+    #   run: |
+    #     terraform init
+    #     terraform validate -no-color
 
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-      working-directory: infra/instances/staging/
-      continue-on-error: true
+    # - name: Terraform Plan
+    #   id: plan
+    #   run: terraform plan -no-color
+    #   working-directory: infra/instances/staging/
+    #   continue-on-error: true
     
     # # ======================================================
     # # Once Terraform Plan is completed we need to update
