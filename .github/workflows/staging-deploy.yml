@@ -1,0 +1,69 @@
+name: Create Dev Staging Environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      PR_number:
+        description: 'Pull request number'
+        required: true
+
+jobs:
+  create:
+    name: 'Create staging and deploy'
+    defaults:
+      run:
+        shell: bash
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+
+    # ======================================================
+    # It's important to check that the PR number 
+    # provided as input is valid and belongs to 
+    # the repository.
+    # 
+    # This will also return the PR's branch as an output
+    # which can be fetched in next steps via:
+    # ${{ steps.verify_pr_number.outputs.result }}
+    # ======================================================
+    - name: Verify Pull Request Number
+      uses: actions/github-script@v5
+      id: verify_pr_number
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        result-encoding: string
+        script: |
+          const response = await github.rest.pulls.get({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: ${{ github.event.inputs.PR_number }}
+          });
+          
+          // Check if the pull request is open
+          if (response.data.number !== ${{ github.event.inputs.PR_number }}) {
+            throw new Error('Pull request is not open or number is not valid!');
+          } else {
+            console.log("PR ref: " + response.data.head.ref);
+            return response.data.head.ref;
+          }
+
+    # ======================================================
+    # Checkout the branch infra and the repository
+    # ======================================================
+    - uses: actions/checkout@v2
+      name: 'Checkout repository and infra branch'
+      with:
+        ref: infra
+
+    # ======================================================
+    # Terraform setup
+    # 
+    # - secrets.TERRAFORM_API_TOKEN: is the Terraform
+    # Cloud API Token.
+    # ======================================================
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v1
+    #   with:
+    #     terraform_version: 1.0.11
+    #     cli_config_credentials_token: ${{ secrets.TERRAFORM_API_TOKEN }}
