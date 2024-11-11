@@ -72,10 +72,6 @@ The GitHub Actions workflow file can be found in `.github/workflows/ci.yml`. To 
 
 This project is licensed under the MIT License.
 
-## 📬 Contact
-
-For any questions or feedback, feel free to reach out at [mingazzini.michael@gmail.com].
-
 ---
 
 Happy coding and enjoy the weather! ☀️🌧️
