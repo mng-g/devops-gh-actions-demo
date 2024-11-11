@@ -92,19 +92,19 @@ jobs:
     #     OUTPUT="$(./create_staging_resource.sh PR_${{ github.event.inputs.PR_number }} | jq -r .terraform_expected_output)"
     #     echo "::set-output name=STAGING_RESOURCE_NAME::$OUTPUT"
 
-    # #TODO: Fare in modo che ci siano i file terraform desiderati nella folder staging
-    # - name: Terraform Init and Validate
-    #   id: init
-    #   working-directory: infra/instances/staging/
-    #   run: |
-    #     terraform init
-    #     terraform validate -no-color
+    #TODO: Fare in modo che ci siano i file terraform desiderati nella folder staging
+    - name: Terraform Init and Validate
+      id: init
+      working-directory: infra/instances/staging/
+      run: |
+        terraform init
+        terraform validate -no-color
 
-    # - name: Terraform Plan
-    #   id: plan
-    #   run: terraform plan -no-color
-    #   working-directory: infra/instances/staging/
-    #   continue-on-error: true
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+      working-directory: infra/instances/staging/
+      continue-on-error: true
     
     # # ======================================================
     # # Once Terraform Plan is completed we need to update
